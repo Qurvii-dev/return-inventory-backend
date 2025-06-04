@@ -8,6 +8,7 @@ const app = express();
 const returnTableRoutes = require("./routes/returnTable.route");
 const pressTableRoutes = require("./routes/pressTable.route");
 const shipReturnRoutes = require("./routes/shipReturn.route");
+const inventoryTableRoutes = require("./routes/inventoryTable.route");
 
 const PORT = process.env.PORT || 5000;
 
@@ -21,6 +22,7 @@ app.use(cors());
 app.use("/api/v1/return-table",returnTableRoutes);
 app.use("/api/v1/press-table",pressTableRoutes);
 app.use("/api/v1/ship-record",shipReturnRoutes)
+app.use("/api/v1/inventory-table",inventoryTableRoutes);
 
 
 // mongodb connection 
