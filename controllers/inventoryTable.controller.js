@@ -17,8 +17,7 @@ const saveSessionProducts = async (req, res, next) => {
      }
     const records = products.map((product) => ({
       ...product,
-      location
-      
+      location,
       session_id,
     }));
 
