@@ -7,7 +7,7 @@ const inventorySchema = new mongoose.Schema({
   rackSpace: String,
   location: {
     type: String,
-    required
+    required:true,
   },
   session_id: {
     type: String,
