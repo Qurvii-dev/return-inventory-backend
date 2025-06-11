@@ -18,7 +18,6 @@ const saveSessionProducts = async (req, res, next) => {
     const records = products.map((product) => ({
       ...product,
       session_id,
-      location: "Inventory Cart",
     }));
 
     await InventoryTable.insertMany(records);
