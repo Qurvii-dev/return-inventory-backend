@@ -5,7 +5,7 @@ const ApiResponse = require("../utils/ApiResponse");
 
 const saveSessionProducts = async (req, res, next) => {
   try {
-    const { session_id, products ,location } = req.body;
+    const { session_id, products, location } = req.body;
 
     if (!session_id || !Array.isArray(products)) {
       return res.status(400).json({ message: "Session ID and products required" });
@@ -64,12 +64,24 @@ const deleteSessionProducts = async (req, res, next) => {
 
 const deleteSingleSessionProduct = async(req,res,next)=>{
   try {
-    const {styleNumber,size} = req.body;
-    if(!styleNumber || !size){
-      return res.status(400).json({message:"Style Number and size required"});
-    }
+    const {styleNumber,size, order_id} = req.body;
+
+     // Validate input
+        if (
+          (!order_id && (!styleNumber || !size)) ||
+          (styleNumber && !size) ||
+          (!styleNumber && size)
+        ) {
+          throw new ApiError(409, "order_id or both styleNumber and size are required");
+        }
     
-    const recordExists = await InventoryTable.findOne({styleNumber,size});
+        // Build dynamic query
+        const query = order_id
+          ? { order_id }
+          : { styleNumber, size };
+  
+    
+    const recordExists = await InventoryTable.findOne({query});
 
     if(!recordExists){
       return res.status(404).json({message:"Record not found"});
