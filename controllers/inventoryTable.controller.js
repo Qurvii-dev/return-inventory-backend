@@ -5,7 +5,7 @@ const ApiResponse = require("../utils/ApiResponse");
 
 const saveSessionProducts = async (req, res, next) => {
   try {
-    const { session_id, products } = req.body;
+    const { session_id, products ,location } = req.body;
 
     if (!session_id || !Array.isArray(products)) {
       return res.status(400).json({ message: "Session ID and products required" });
@@ -18,6 +18,7 @@ const saveSessionProducts = async (req, res, next) => {
     const records = products.map((product) => ({
       ...product,
       session_id,
+      location
     }));
 
     await InventoryTable.insertMany(records);
