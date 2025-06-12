@@ -25,7 +25,7 @@ const shipReturn = async(req,res,next)=>{
 
      const record = await PressTable.findOne({query});
      if(!record){
-         throw new ApiError(404,`${order_id || style_number && Size}  not found.`);
+         throw new ApiError(404,`Record not found.`);
      }
  
     //  fetching press table record and deleting from press table and added to ship record 
