@@ -81,7 +81,7 @@ const deleteSingleSessionProduct = async(req,res,next)=>{
           : { styleNumber, size };
   
     
-    const recordExists = await InventoryTable.findOne({query});
+    const recordExists = await InventoryTable.findOne(query);
 
     if(!recordExists){
       return res.status(404).json({message:"Record not found"});
@@ -91,7 +91,7 @@ const deleteSingleSessionProduct = async(req,res,next)=>{
     
     res.status(200).json({success:true,message:"Record deleted successfully.",session_id_record});
   } catch (error) {
-    next(err);
+    next(error);
   }
 }
 
