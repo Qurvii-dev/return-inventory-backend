@@ -23,7 +23,7 @@ const shipReturn = async(req,res,next)=>{
           ? { order_id }
           : { style_number, Size };
 
-     const record = await PressTable.findOne({query});
+     const record = await PressTable.findOne(query);
      if(!record){
          throw new ApiError(404,`Record not found.`);
      }
