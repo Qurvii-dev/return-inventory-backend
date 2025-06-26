@@ -44,7 +44,19 @@ const addToShip = async(req,res,next)=>{
 }
 
 
+const getShippedOrders = async(req,res,next)=>{
+    try {
+        const shippedOrders = await ShippedOrders.find();
+        if(shippedOrders.length === 0) {
+            return res.status(200).json(new ApiResponse(200,"No shipped record found"))
+        }
+
+        res.status(200).json(new ApiResponse(200,"All shipped record fetched successfully",shippedOrders));
+    } catch (error) {
+        next(error)
+    }
+}
 
 
 
-module.exports = {getConfirmOrders, addToShip}
+module.exports = {getConfirmOrders, addToShip, getShippedOrders}
