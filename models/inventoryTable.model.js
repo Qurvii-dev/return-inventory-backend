@@ -7,7 +7,7 @@ const inventorySchema = new mongoose.Schema({
   rackSpace: String,
   location: {
     type: String,
-    required:true,
+    default:"Inventory Cart"
   },
   session_id: {
     type: String,

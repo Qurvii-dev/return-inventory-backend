@@ -88,6 +88,7 @@ const deleteSingleSessionProduct = async(req,res,next)=>{
     }
 
     const session_id_record = await InventoryTable.findByIdAndDelete(recordExists._id);
+    // const session_id_record = await InventoryTable.findById(recordExists._id);
     
     res.status(200).json({success:true,message:"Record deleted successfully.",session_id_record});
   } catch (error) {
