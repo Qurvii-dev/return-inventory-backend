@@ -1,5 +1,5 @@
 const express = require("express");
-const { getConfirmOrders, addToShip } = require("../controllers/confirmOrder.controller");
+const { getConfirmOrders, addToShip, getShippedOrders } = require("../controllers/confirmOrder.controller");
 const router = express.Router();
 
 router.route("/confirm-orders").get(getConfirmOrders);
