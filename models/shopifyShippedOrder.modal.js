@@ -4,7 +4,7 @@ const shippedOrderSchema = new mongoose.Schema({
   order_id: {
     type: String,
     required: true,
-    unique: true
+
   },
   styleNumber: { // ✅ fixed typo here
     type: Number,
@@ -27,7 +27,6 @@ const shippedOrderSchema = new mongoose.Schema({
   },
   order_status:{
     type:String,
-    default:"N/A"
   },
   contact_number:{
     type:String,
