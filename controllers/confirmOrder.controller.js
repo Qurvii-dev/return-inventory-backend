@@ -41,7 +41,7 @@ const addToShip = async (req, res, next) => {
     });
 
     // Remove from confirm orders
-    await ConfirmOrder.findByIdAndDelete(findOrderFromConfirmOrders._id);
+    await ConfirmOrder.findOneAndDelete({order_id});
 
     res.status(201).json(new ApiResponse(201, `${order_id} shipped successfully`, insertedShippedOrder));
   } catch (error) {
