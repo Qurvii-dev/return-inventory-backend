@@ -36,7 +36,7 @@ const deleteCancelOrder = async (req, res, next) => {
     const addToShippedOrder = await ShippedOrder.create(plainCancelOrder);
 
     // Delete from cancel orders
-    await CancelOrder.findByIdAndDelete(cancelOrder._id);
+    await CancelOrder.findOneAndDelete({order_id});
 
     res.status(201).json(new ApiResponse(201, `${order_id} moved to all orders.`, addToShippedOrder));
   } catch (error) {
