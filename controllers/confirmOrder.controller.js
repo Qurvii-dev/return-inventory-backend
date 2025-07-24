@@ -28,11 +28,11 @@ const addToShip = async (req, res, next) => {
       return next(new ApiError(400, "All fields are required"));
     }
 
-    // // Find the confirm order
-    // const findOrderFromConfirmOrders = await ConfirmOrder.findOne({ order_id });
-    // if (!findOrderFromConfirmOrders) {
-    //   return next(new ApiError(404, `${order_id} not found in confirm orders.`));
-    // }
+    // Find the confirm order
+    const findOrderFromConfirmOrders = await ConfirmOrder.findOne({ order_id });
+    if (!findOrderFromConfirmOrders) {
+      return next(new ApiError(404, `${order_id} not found in confirm orders.`));
+    }
 
     // Insert into shipped orders
     const insertedShippedOrder = await ShippedOrders.create({
@@ -41,7 +41,7 @@ const addToShip = async (req, res, next) => {
     });
 
     // Remove from confirm orders
-    await ConfirmOrder.findOneAndDelete({order_id});
+    await ConfirmOrder.findByIdAndDelete(findOrderFromConfirmOrders._id);
 
     res.status(201).json(new ApiResponse(201, `${order_id} shipped successfully`, insertedShippedOrder));
   } catch (error) {
