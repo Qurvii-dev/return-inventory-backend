@@ -14,6 +14,7 @@ const inventoryTableRoutes = require("./routes/inventoryTable.route");
 const shopifyPendingOrdersRoutes = require("./routes/pendingOrder.routes")
 const shopifyCancelOrdersRoute = require("./routes/cancelOrder.routes");
 const shopifyConfirmOrdersRoutes = require("./routes/confirmOrder.routes");
+const shopifyPreCancelledRoutes = require("./routes/preCancelled.routes");
 
 
 const PORT = process.env.PORT || 5000;
@@ -46,6 +47,7 @@ app.use("/api/v1/inventory-table", inventoryTableRoutes);
 app.use("/api/v1/shopify", shopifyPendingOrdersRoutes);
 app.use("/api/v1/shopify", shopifyCancelOrdersRoute);
 app.use("/api/v1/shopify", shopifyConfirmOrdersRoutes);
+app.use("/api/v1/shopify", shopifyPreCancelledRoutes);
 
 
 // mongodb connection 
