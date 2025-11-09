@@ -11,10 +11,10 @@ const saveSessionProducts = async (req, res, next) => {
       return res.status(400).json({ message: "Session ID and products required" });
     }
 
-     const sessionIdExists = await InventoryTable.findOne({session_id});
-     if(sessionIdExists){
-        throw new ApiError(409,"This session already added.");
-     }
+    const sessionIdExists = await InventoryTable.findOne({ session_id });
+    if (sessionIdExists) {
+      throw new ApiError(409, "This session already added.");
+    }
     const records = products.map((product) => ({
       ...product,
       session_id,
@@ -30,18 +30,16 @@ const saveSessionProducts = async (req, res, next) => {
 };
 
 
-
 // get inventory table records 
-const getInventoryTableRecords = async(_,res,next)=>{
-    try {
-        const records = await InventoryTable.find();
-        res.status(200).json(new ApiResponse(200,"Records fetched successfully.",records));
-        
-    } catch (error) {
-        next(error)
-    }
-}
+const getInventoryTableRecords = async (_, res, next) => {
+  try {
+    const records = await InventoryTable.find();
+    res.status(200).json(new ApiResponse(200, "Records fetched successfully.", records));
 
+  } catch (error) {
+    next(error)
+  }
+}
 
 // delete inventory table records 
 
@@ -62,40 +60,40 @@ const deleteSessionProducts = async (req, res, next) => {
   }
 };
 
-const deleteSingleSessionProduct = async(req,res,next)=>{
+const deleteSingleSessionProduct = async (req, res, next) => {
   try {
-    const {styleNumber,size, order_id} = req.body;
+    const { styleNumber, size, order_id } = req.body;
 
-     // Validate input
-        if (
-          (!order_id && (!styleNumber || !size)) ||
-          (styleNumber && !size) ||
-          (!styleNumber && size)
-        ) {
-          throw new ApiError(409, "order_id or both styleNumber and size are required");
-        }
-    
-        // Build dynamic query
-        const query = order_id
-          ? { order_id }
-          : { styleNumber, size };
-  
-    
+    // Validate input
+    if (
+      (!order_id && (!styleNumber || !size)) ||
+      (styleNumber && !size) ||
+      (!styleNumber && size)
+    ) {
+      throw new ApiError(409, "order_id or both styleNumber and size are required");
+    }
+
+    // Build dynamic query
+    const query = order_id
+      ? { order_id }
+      : { styleNumber, size };
+
+
     const recordExists = await InventoryTable.findOne(query);
 
-    if(!recordExists){
-      return res.status(404).json({message:"Record not found"});
+    if (!recordExists) {
+      return res.status(404).json({ message: "Record not found" });
     }
 
     const session_id_record = await InventoryTable.findByIdAndDelete(recordExists._id);
     // const session_id_record = await InventoryTable.findById(recordExists._id);
-    
-    res.status(200).json({success:true,message:"Record deleted successfully.",session_id_record});
+
+    res.status(200).json({ success: true, message: "Record deleted successfully.", session_id_record });
   } catch (error) {
     next(error);
   }
 }
 
-module.exports = {deleteSessionProducts, saveSessionProducts, getInventoryTableRecords , deleteSingleSessionProduct};
+module.exports = { deleteSessionProducts, saveSessionProducts, getInventoryTableRecords, deleteSingleSessionProduct };
 
 
