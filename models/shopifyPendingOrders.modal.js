@@ -5,7 +5,7 @@ const pendingOrderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  styleNumber: { // ✅ fixed typo here
+  styleNumber: { // ✅ fixed 
     type: Number,
     required: true
   },
@@ -40,3 +40,4 @@ const pendingOrderSchema = new mongoose.Schema({
 const PendingOrder = mongoose.model("PendingOrder", pendingOrderSchema);
 
 module.exports = PendingOrder;
+
